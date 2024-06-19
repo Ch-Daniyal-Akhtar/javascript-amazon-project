@@ -90,6 +90,15 @@ HTML+=`<div class="cart-item-container   cart-item-container-${matchingItem.id}"
 
 });
 document.querySelector('.order-summary').innerHTML=HTML;
+function updateCartQuantity(){
+let Total=0;
+cart.forEach((item)=>{
+Total+=item.quantity;
+});
+document.querySelector('.CartItems').innerHTML=`${Total} items`;}
+
+updateCartQuantity();
+document.querySelector('.CartItems').innerHTML=`${Total} items`;
 document.querySelectorAll('.deleteBtn').forEach((link)=>{
     let productid=link.dataset.productId;
     link.addEventListener('click',()=>{

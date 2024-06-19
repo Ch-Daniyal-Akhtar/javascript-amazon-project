@@ -61,7 +61,7 @@ function cartQuantity(){
     totalQuantity+=items.quantity;
     })
     document.querySelector('.cart-quantity').innerHTML=totalQuantity;
-    //document.querySelector('.itemNo').textContent=`${totalQuantity} items`;
+   // document.querySelector('.CartItems').innerHTML=`${totalQuantity} items`;
 
 }
 cartQuantity();
