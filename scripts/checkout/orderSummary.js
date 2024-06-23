@@ -5,7 +5,8 @@ import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { deliveryOptions } from '../deliveryOptioins.js';
 import { showPaymentSummary } from './paymentSummary.js';
 
-
+let date=dayjs();
+console.log(date.add(1,'month').format('D MMMM,dddd'));
 
 
 
@@ -19,12 +20,10 @@ export function updateCartQuantity(){
 
 }
 export function orderSummary(){
-console.log(dayjs());
 let today = dayjs();
 let HTML='';
 cart.forEach((cartItem)=>{
-    let matchingItem=MatchingProduct(cartItem);
-    
+    let matchingItem=MatchingProduct(cartItem);    
     let deliveryOption;
     let futureDate;
     deliveryOption=findDeliveryOption(cartItem);
