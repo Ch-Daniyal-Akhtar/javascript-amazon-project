@@ -1,4 +1,28 @@
-export let cart =JSON.parse(localStorage.getItem('cart'))
+import { products } from "./products.js";
+import { deliveryOptions } from "../scripts/deliveryOptioins.js";
+
+export function MatchingProduct(cartItem){
+        let matchingItem;
+        products.forEach((product)=>{
+            if(cartItem.productId===product.id){
+             matchingItem=product;
+         }
+        });
+        return matchingItem;   
+};
+
+export function findDeliveryOption(cartItem){
+    let deliveryOption;
+    deliveryOptions.forEach(option=>{
+        if(cartItem.deliveryId===option.id){
+         deliveryOption=option;
+        }
+       });
+       return deliveryOption;
+}
+
+export let cart =JSON.parse(localStorage.getItem('cart'));
+
 
 if(!cart){
 cart=[{
