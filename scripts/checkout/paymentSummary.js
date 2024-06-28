@@ -19,10 +19,6 @@ let matchingProduct=MatchingProduct(cartItem);
 totalPrice=itemPrice+shippingPrice;
 tax=Math.round(totalPrice*0.1);
 orderTotal=totalPrice+tax;
-console.log(itemPrice);
-console.log(shippingPrice);
-console.log(totalPrice);
-console.log(tax);
 let PaymentHtml='';
 PaymentHtml+=`<div class="payment-summary-title">
     Order Summary

@@ -1,4 +1,119 @@
-export const products = [
+import { priceCalculator } from "../scripts/utils/money.js";
+
+
+
+class  Product{
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+  keywords;
+    constructor(product){
+      this.id=product.id;
+      this.image=product.image;
+      this.keywords=product.keywords;
+      this.name=product.name;
+      this.rating=product.rating;
+      this.priceCents=product.priceCents;
+      this.keywords=product.keywords;
+    }
+
+    getUrl(){
+      return `images/ratings/rating-${this.rating.stars*10}.png`;
+    }
+    getPrice(){
+      return `$${priceCalculator(this.priceCents)}`
+    }
+    getsizeChart(){
+      return '';
+    }
+    getwarrantyLink(){
+      return ``;
+    }
+    getinstructionsLink(){
+      return ``;
+    }
+}
+class Clothing extends Product{
+  sizeChart;
+  constructor(productDetails){
+    super(productDetails);
+    this.sizeChart=productDetails.sizeChart;
+  }
+
+  getsizeChart(){
+    return `<a href="../images/clothing-size-chart.png" target="_blank" >View Size Chart</a>`;
+  }
+  getwarrantyLink(){
+    return ``;
+  }
+  getinstructionsLink(){
+    return ``;
+  }
+}
+class Appliances extends Product{
+  instructionLink;
+  warrantyLink;
+  constructor(product){
+    super(product);
+    this.instructionLink=product.instructionLink;
+    this.warrantyLink=product.warrantyLink;
+  }
+  getwarrantyLink(){
+    return `<a href="../images/appliance-warranty.png" target="_blank" >View Warranty</a>`;
+  }
+  getinstructionsLink(){
+    return `<a href="../images/appliance-instructions.png" target="_blank" >View Instructions</a>`;
+  }
+
+
+
+}
+export let products=[]
+export function loadProductsFetch(){
+  let promise=fetch('https://supersimplebackend.dev/products').then((value)=>{
+     
+    return value.json();
+  }).then((array)=>{
+     products=array.map(productDetails=>{
+      if(productDetails.type==='clothing'){
+        
+        return new Clothing(productDetails); 
+      }
+      if(productDetails.type==='appliances'){
+        return new Appliances(productDetails);
+      }
+      return new Product(productDetails);
+    });
+   
+  });
+  return promise;
+ }
+
+export function loadProducts(fun){
+    let xhr= new XMLHttpRequest();
+    xhr.addEventListener('load',()=>{
+    let productItems=JSON.parse((xhr.response));
+     products= productItems.map(productDetails=>{
+      if(productDetails.type==='clothing'){
+        
+        return new Clothing(productDetails); 
+      }
+      if(productDetails.type==='appliances'){
+        return new Appliances(productDetails);
+      }
+      return new Product(productDetails);
+   
+    });
+    console.log('load Products');
+    fun();
+  });
+  xhr.open('GET','https://supersimplebackend.dev/products');
+  xhr.send();
+}
+
+export const productsItems = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -58,7 +173,10 @@ export const products = [
       "toaster",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type:"appliances",
+    warantyLink:"images/appliance-warranty.png",
+    instructionsLink:"images/appliance-instructions.png"
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -243,7 +361,10 @@ export const products = [
       "water boiler",
       "appliances",
       "kitchen"
-    ]
+    ],
+    type:"appliances",
+    warantyLink:"images/appliance-warranty.png",
+    instructionsLink:"images/appliance-instructions.png"
   },
   {
     id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
@@ -548,7 +669,10 @@ export const products = [
       "coffeemakers",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type:"appliances",
+    warantyLink:"images/appliance-warranty.png",
+    instructionsLink:"images/appliance-instructions.png"
   },
   {
     id: "02e3a47e-dd68-467e-9f71-8bf6f723fdae",
@@ -608,7 +732,10 @@ export const products = [
       "food blenders",
       "kitchen",
       "appliances"
-    ]
+    ],
+    type:"appliances",
+    warantyLink:"images/appliance-warranty.png",
+    instructionsLink:"images/appliance-instructions.png"
   },
   {
     id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
@@ -658,3 +785,7 @@ export const products = [
     ]
   }
 ];
+
+
+
+

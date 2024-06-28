@@ -1,9 +1,12 @@
 import {cart,addToCart} from '../data/cart.js';
-import {products} from '../data/products.js';
+import {loadProducts, products} from '../data/products.js';
 import { priceCalculator } from './utils/money.js';
 
 
 let Html='';
+loadProducts(mainProductsPage);
+
+function mainProductsPage(){
 products.forEach((product)=>{
     Html += `<div class="product-container">
             <div class="product-image-container">
@@ -16,14 +19,14 @@ products.forEach((product)=>{
 
             <div class="product-rating-container">
                 <img class="product-rating-stars"
-                src="images/ratings/rating-${product.rating.stars*10}.png">
+                src=${product.getUrl()}>
                 <div class="product-rating-count link-primary">
                 ${product.rating.count}
                 </div>
             </div>
 
             <div class="product-price">
-                $${priceCalculator(product.priceCents)}
+                ${product.getPrice()}
             </div>
 
             <div class="product-quantity-container">
@@ -42,6 +45,9 @@ products.forEach((product)=>{
             </div>
 
             <div class="product-spacer"></div>
+            ${product.getsizeChart()}
+            ${product.getinstructionsLink()}
+            ${product.getwarrantyLink()}
 
             <div class="added-to-cart  added-to-cart-${product.id}">
                 <img src="images/icons/checkmark.png">
@@ -52,6 +58,7 @@ products.forEach((product)=>{
             data-product-id="${product.id}">
                 Add to Cart
             </button>
+            
             </div>`;
 });
 function cartQuantity(){
@@ -84,4 +91,4 @@ document.querySelectorAll('.addBtn').forEach(button=>{button.addEventListener('c
         console.log(cart);  
     });
 });
-
+}
