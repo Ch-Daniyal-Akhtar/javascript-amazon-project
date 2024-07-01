@@ -19,6 +19,10 @@ export function updateCartQuantity(){
 export function orderSummary(){
   let today = dayjs();
   let HTML='';
+  if(cart.length=== 0){
+    HTML='<p>No Items to show<p>';
+  }
+  else{
   cart.forEach((cartItem)=>{
       let matchingItem=MatchingProduct(cartItem);    
       let deliveryOption;
@@ -67,7 +71,7 @@ export function orderSummary(){
             </div>`
 
 
-  });
+  });}
 
 
 function generateDeliveryOptionsHTML(options,matchingItem,cartItem) {

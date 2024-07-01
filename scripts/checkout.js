@@ -25,7 +25,7 @@ Promise.all(
         [ loadProductsFetch(),
             new Promise((resolve)=>{
                 loadCart(()=>{
-                    resolve('hello')});  
+                    resolve()});  
             })
         
         ]
